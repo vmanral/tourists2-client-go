@@ -10,7 +10,7 @@ import (
 )
 
 // HostURL - Default Tourists URL
-const HostURL string = "https://gorest.co.in/public/v2/users"
+const HostURL string = "https://gorest.co.in"
 
 // Client -
 type Client struct {
@@ -69,7 +69,8 @@ func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error)
 		return nil, err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	//if res.StatusCode != http.StatusOK {
+	if res.StatusCode != 200 && res.StatusCode != 201 && res.StatusCode != 202 {
 		return nil, fmt.Errorf("status: %d, body: %s", res.StatusCode, body)
 	}
 
