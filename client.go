@@ -1,4 +1,4 @@
-package tourists2
+package tourists3
 
 import (
 	"fmt"
@@ -10,12 +10,13 @@ import (
 )
 
 // HostURL - Default Tourists URL
-const HostURL string = "http://restapi.adequateshop.com"
+const HostURL string = "https://gorest.co.in/public/v2/users"
 
 // Client -
 type Client struct {
 	HostURL    string
 	HTTPClient *http.Client
+	Token    string `json:"token"`
 }
 
 // AuthStruct -
@@ -42,6 +43,8 @@ func NewClient(host *string) (*Client, error) {
 	if host != nil {
 		c.HostURL = *host
 	}
+
+	c.Token = "d0276fb9a596e9eafc7f786a6ce6db646bbb7915568a7adff372f3ca4268c588"
 
 	return &c, nil
 }
