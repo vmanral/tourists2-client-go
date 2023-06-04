@@ -52,7 +52,7 @@ func (c *Client) GetOrder(orderID string, authToken *string) (*Order, error) {
 
 // GetSpecificTourist - Returns details of a specifc tourist
 func (c *Client) GetSpecificTourist(touristID string) (*Tourists, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/Tourist/%s", c.HostURL, touristID), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/public/v2/users/%s", c.HostURL, touristID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (c *Client) CreateNewTourist(orderItems TouristInput) (*Tourists, error) {
 	fmt.Println(string(rb))
 	fmt.Println(strings.NewReader(string(rb)))
 
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/Tourist", c.HostURL), strings.NewReader(string(rb)))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/public/v2/users", c.HostURL), strings.NewReader(string(rb)))
 	req.Header.Add("Content-Type", "application/json")
 	fmt.Println(req)
 	if err != nil {
