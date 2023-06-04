@@ -50,6 +50,14 @@ func NewClient(host *string) (*Client, error) {
 }
 
 func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error) {
+	token := c.Token
+
+	if authToken != nil {
+		token = *authToken
+	}
+
+	req.Header.Set("Authorization", token)
+
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -69,10 +77,10 @@ func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error)
 }
 
 // GetTourists - Returns list of tourists (no auth required)
-func (c *Client) GetTourists() (Tourist, error) {
-	var tourists Tourist
+func (c *Client) GetTourists() ([]Tourists, error) {
+	var tourists Tourists
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/Tourist", c.HostURL), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/public/v2/users", c.HostURL), nil)
 	if err != nil {
 		return tourists, err
 	}

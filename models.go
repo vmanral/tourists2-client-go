@@ -14,8 +14,8 @@ type OrderItem struct {
 	//Tourist_Location  string         `json:"tourist_location"`
 }
 
-// Tourist -
-type Tourist struct {
+// Tourists -
+type Tourists struct {
 	Page              int            `json:"page"`
 	Per_Page          int            `json:"per_page"`
 	TotalRecord       int            `json:"totalrecord"`
