@@ -1,4 +1,4 @@
-package tourists
+package tourists2
 
 // Order -
 type Order struct {
