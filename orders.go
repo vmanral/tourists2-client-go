@@ -51,7 +51,7 @@ func (c *Client) GetOrder(orderID string, authToken *string) (*Order, error) {
 }
 
 // GetSpecificTourist - Returns details of a specifc tourist
-func (c *Client) GetSpecificTourist(touristID string) (*TouristData, error) {
+func (c *Client) GetSpecificTourist(touristID string) (*Tourists, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/Tourist/%s", c.HostURL, touristID), nil)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (c *Client) GetSpecificTourist(touristID string) (*TouristData, error) {
 		return nil, err
 	}
 
-	order := TouristData{}
+	order := Tourists{}
 	err = json.Unmarshal(body, &order)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (c *Client) CreateOrder(orderItems []OrderItem, authToken *string) (*Order,
 }
 
 // CreateNewTourist - Create new tourist
-func (c *Client) CreateNewTourist(orderItems TouristInput) (*TouristData, error) {
+func (c *Client) CreateNewTourist(orderItems TouristInput) (*Tourists, error) {
 	fmt.Println(orderItems)
 	rb, err := json.Marshal(orderItems)
 	fmt.Println(rb)
@@ -122,7 +122,7 @@ func (c *Client) CreateNewTourist(orderItems TouristInput) (*TouristData, error)
 		return nil, err
 	}
 
-	order := TouristData{}
+	order := Tourists{}
 	err = json.Unmarshal(body, &order)
 	if err != nil {
 		return nil, err

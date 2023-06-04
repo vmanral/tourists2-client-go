@@ -8,7 +8,7 @@ type Order struct {
 
 // OrderItem -
 type OrderItem struct {
-	Tourist   TouristData `json:"tourist"`
+	Tourist   Tourists `json:"tourist"`
 	//Tourist_Name      string         `json:"tourist_name"`
 	//Tourist_Email     string         `json:"tourist_email"`
 	//Tourist_Location  string         `json:"tourist_location"`
@@ -16,23 +16,17 @@ type OrderItem struct {
 
 // Tourists -
 type Tourists struct {
-	Page              int            `json:"page"`
-	Per_Page          int            `json:"per_page"`
-	TotalRecord       int            `json:"totalrecord"`
-	Total_Pages       int            `json:"total_pages"`
-	Data              []TouristData  `json:"data"`
-}
-
-type TouristData struct {
-	ID                string         `json:"id"`
-	Tourist_Name      string         `json:"tourist_name"`
-	Tourist_Email     string         `json:"tourist_email"`
-	Tourist_Location  string         `json:"tourist_location"`
-	Createdat         string         `json:"Createdat"`
+//	ID                string         `json:"id"`
+	ID                int            `json:"id"`
+	Name              string         `json:"name"`
+	Email             string         `json:"email"`
+	Gender            string         `json:"gender"`
+	Status            string         `json:"status"`
 }
 
 type TouristInput struct {
-	Tourist_Name      string         `json:"tourist_name"`
-	Tourist_Email     string         `json:"tourist_email"`
-	Tourist_Location  string         `json:"tourist_location"`
+	Name              string         `json:"name"`
+	Email             string         `json:"email"`
+	Gender            string         `json:"gender"`
+	Status            string         `json:"status"`
 }

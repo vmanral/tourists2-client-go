@@ -78,7 +78,7 @@ func (c *Client) doRequest(req *http.Request, authToken *string) ([]byte, error)
 
 // GetTourists - Returns list of tourists (no auth required)
 func (c *Client) GetTourists() ([]Tourists, error) {
-	var tourists Tourists
+	tourists := []Tourists{}
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/public/v2/users", c.HostURL), nil)
 	if err != nil {
@@ -100,8 +100,8 @@ func (c *Client) GetTourists() ([]Tourists, error) {
 }
 
 // GetTourist - Returns specific tourist (no auth required)
-func (c *Client) GetTourist(touristID string) ([]Tourist, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/Tourist/%s", c.HostURL, touristID), nil)
+func (c *Client) GetTourist(touristID string) ([]Tourists, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/public/v2/users/%s", c.HostURL, touristID), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -111,23 +111,23 @@ func (c *Client) GetTourist(touristID string) ([]Tourist, error) {
 		return nil, err
 	}
 
-	tourists := []Tourist{}
-	err = json.Unmarshal(body, &tourists)
+	tourist := []Tourists{}
+	err = json.Unmarshal(body, &tourist)
 	if err != nil {
 		return nil, err
 	}
 
-	return tourists, nil
+	return tourist, nil
 }
 
 // CreateTourist - Create new tourist
-func (c *Client) CreateTourist(tourist Tourist, authToken *string) (*Tourist, error) {
+func (c *Client) CreateTourist(tourist TouristInput, authToken *string) (*Tourists, error) {
 	rb, err := json.Marshal(tourist)
 	if err != nil {
 		return nil, err
 	}
 
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/api/Tourist", c.HostURL), strings.NewReader(string(rb)))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/public/v2/users", c.HostURL), strings.NewReader(string(rb)))
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (c *Client) CreateTourist(tourist Tourist, authToken *string) (*Tourist, er
 		return nil, err
 	}
 
-	newTourist := Tourist{}
+	newTourist := Tourists{}
 	err = json.Unmarshal(body, &newTourist)
 	if err != nil {
 		return nil, err
