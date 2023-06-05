@@ -7,6 +7,7 @@ import (
 	"time"
 	"encoding/json"
 	"strings"
+	"os"
 )
 
 // HostURL - Default Tourists URL
@@ -44,7 +45,7 @@ func NewClient(host *string) (*Client, error) {
 		c.HostURL = *host
 	}
 
-	c.Token = "Bearer d0276fb9a596e9eafc7f786a6ce6db646bbb7915568a7adff372f3ca4268c588"
+	c.Token = os.Getenv("AUTH_TOKEN")
 
 	return &c, nil
 }
