@@ -202,3 +202,22 @@ func (c *Client) DeleteOrder(orderID string, authToken *string) error {
 
 	return nil
 }
+
+// DeleteTourist - Deletes an Tourist
+func (c *Client) DeleteTourist(orderID string) error {
+	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/public/v2/users/%s", c.HostURL, orderID), nil)
+	if err != nil {
+		return err
+	}
+
+	body, err := c.doRequest(req, nil)
+	if err != nil {
+		return err
+	}
+
+	if string(body) != "Deleted order" {
+		return errors.New(string(body))
+	}
+
+	return nil
+}
