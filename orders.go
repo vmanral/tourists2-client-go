@@ -157,6 +157,33 @@ func (c *Client) UpdateOrder(orderID string, orderItems []OrderItem, authToken *
 	return &order, nil
 }
 
+// UpdateOrder - Updates an order
+func (c *Client) UpdateTourist(orderID string, orderItems TouristInput) (*Tourists, error) {
+	rb, err := json.Marshal(orderItems)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PATCH", fmt.Sprintf("%s/public/v2/users/%s", c.HostURL, orderID), strings.NewReader(string(rb)))
+	req.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := c.doRequest(req, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	order := Tourists{}
+	err = json.Unmarshal(body, &order)
+	if err != nil {
+		return nil, err
+	}
+
+	return &order, nil
+}
+
 // DeleteOrder - Deletes an order
 func (c *Client) DeleteOrder(orderID string, authToken *string) error {
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/orders/%s", c.HostURL, orderID), nil)
