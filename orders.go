@@ -206,6 +206,7 @@ func (c *Client) DeleteOrder(orderID string, authToken *string) error {
 // DeleteTourist - Deletes an Tourist
 func (c *Client) DeleteTourist(orderID string) error {
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/public/v2/users/%s", c.HostURL, orderID), nil)
+	req.Header.Set("Content-Type", "application/json")
 	if err != nil {
 		return err
 	}
@@ -215,9 +216,9 @@ func (c *Client) DeleteTourist(orderID string) error {
 		return err
 	}
 
-	if string(body) != "Deleted order" {
-		return errors.New(string(body))
-	}
+	//if string(body) != "Deleted order" {
+	//	return errors.New(string(body))
+	//}
 
 	return nil
 }
