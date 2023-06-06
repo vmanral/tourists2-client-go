@@ -212,9 +212,10 @@ func (c *Client) DeleteTourist(orderID string) error {
 	}
 
 	body, err := c.doRequest(req, nil)
-	if err != nil {
-		return err
-	}
+	fmt.Println (body)
+	//if err != nil {
+	//	return err
+	//}
 
 	//if string(body) != "Deleted order" {
 	//	return errors.New(string(body))
